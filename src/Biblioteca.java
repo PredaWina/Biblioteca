@@ -1,8 +1,5 @@
 /** Programa de cosola para la gestion de una biblioteca.
  * 
- * @Author: Pablo G. S.
- * @Date: 16/05/2021
- * @Version: 1.0
  * 
  * Los datos se guardan en un fichero de texto sin codificar. Funciona exclusivamente a traves de la consola.
  * El programa es una chapuza pero funciona completamente.
