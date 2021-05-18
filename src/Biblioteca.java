@@ -229,30 +229,97 @@ public class Biblioteca {
                     boolean seguirBuscandoISBNModficar = true;
                     String auxISBNModficar = "";
 
+                    boolean seguirBuscandoSelectModficar = true;
+                    int selectModify = 0;
+
+                    boolean seguirBuscandoCantidadModificar = true;
+                    int cantidadModify = 0;
+
                     do{
                         try{
                             sc.nextLine();  
-                            System.out.println("Introduce el ISBN del libro a modificar(Para cancelar escribe 0): ");
-                            auxISBNModficar = sc.nextLine();  
-                            seguirBuscandoISBNModficar = false;
+                            System.out.println("¿Quieres modificar los datos[1], añadir una unidad[2], cancelar[0]?: ");
+                            selectModify = sc.nextInt();  
+                            if(selectModify >= 0 && selectModify < 3){
+                                seguirBuscandoSelectModficar = false;
+                            }
+                            else{
+                                seguirBuscandoISBNModficar = true;
+                            }
             
                         }catch(InputMismatchException e){
             
                             System.out.println("ERROR 0001: Solo puedes introducir numeros. ");
-                            seguirBuscandoISBNModficar = true;
+                            seguirBuscandoSelectModficar = true;
                             sc.next();
             
                         }
                     }
-                    while(seguirBuscandoISBNModficar);
+                    while(seguirBuscandoSelectModficar);
 
-                    if(ReadData.isBookOnLoadedDataByISBN(main, auxISBNModficar)){
-                        System.out.println(ReadData.searchBookOnLoadedDataByISBN(main, auxISBNModficar).toString());
-                        ReadData.modifyBookByISBN(main, auxISBNModficar);
-                    }   
-                    else{
-                        System.out.println("No hay ningun libro con exactamente ese ISBN.");
+                    if(selectModify != 0){
+                        do{
+                            try{
+                                sc.nextLine();  
+                                System.out.println("Introduce el ISBN del libro a añadir unidades(Para cancelar escribe 0): ");
+                                auxISBNModficar = sc.nextLine();  
+                                seguirBuscandoISBNModficar = false;
+                
+                            }catch(InputMismatchException e){
+                
+                                System.out.println("ERROR 0001: Solo puedes introducir numeros. ");
+                                seguirBuscandoISBNModficar = true;
+                                sc.next();
+                
+                            }
+                        }
+                        while(seguirBuscandoISBNModficar);
+    
+                        if(selectModify == 1){
+                            if(ReadData.isBookOnLoadedDataByISBN(main, auxISBNModficar)){
+                                System.out.println(ReadData.searchBookOnLoadedDataByISBN(main, auxISBNModficar).toString());
+                                ReadData.modifyBookByISBN(main, auxISBNModficar);
+                            }   
+                            else{
+                                System.out.println("No hay ningun libro con exactamente ese ISBN.");
+                            }
+                        }
+                        else if(selectModify == 2){
+                            do{
+                                try{
+                                    //sc.nextLine();  
+                                    System.out.println("¿Cuantos unidades quieres añadir?(Número negativos para restar): ");
+                                    cantidadModify = sc.nextInt();  
+                                    seguirBuscandoCantidadModificar = false;
+                                    
+                    
+                                }catch(InputMismatchException e){
+                    
+                                    System.out.println("ERROR 0001: Solo puedes introducir numeros. ");
+                                    seguirBuscandoCantidadModificar = true;
+                                    sc.next();
+                    
+                                }
+                            }
+                            while(seguirBuscandoCantidadModificar);
+    
+    
+                            if(ReadData.isBookOnLoadedDataByISBN(main, auxISBNModficar)){
+                                ReadData.addUnitByISBN(main, auxISBNModficar, cantidadModify);
+                                System.out.println(ReadData.searchBookOnLoadedDataByISBN(main, auxISBNModficar).toString());
+
+                            }   
+                            else{
+                                System.out.println("No hay ningun libro con exactamente ese ISBN.");
+                            }
+    
+                        }
+    
                     }
+
+                    
+                    
+
                     seleccion = 0;
 
                     break;

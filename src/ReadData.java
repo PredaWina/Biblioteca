@@ -303,4 +303,29 @@ public class ReadData {
         }
         
     }
+
+    public static void addUnitByISBN(NodeBook nodo, String ISBN, int unidadesAnadidas){
+        NodeBook main = nodo;
+        boolean found = false;
+        
+        if(main == null || main.data.ISBN == "0"){
+            System.out.println("ERROR 0103: No hay datos cargados.");
+
+        }
+        else{
+            while(main != null && found == false){
+                if(main.data.ISBN.equals(ISBN)){
+                    main.data.amount += unidadesAnadidas;
+                    System.out.println("Nueva cantidad: " + main.data.amount);
+
+                    found = true;
+                }
+                else{
+                    main = main.next;
+                } 
+            }
+            
+        }
+        
+    }
 }
