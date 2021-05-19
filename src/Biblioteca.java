@@ -128,7 +128,7 @@ public class Biblioteca {
                 
                             }catch(InputMismatchException e){
                 
-                                System.out.println("ERROR 0001: Solo puedes introducir numeros. ");
+                                System.out.println("Error 0003: Se perdian caracteres ASCII, se obtuvo otra cosa.");
                                 seguirBuscandoName = true;
                                 sc.next();
                 
