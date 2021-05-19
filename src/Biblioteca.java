@@ -25,6 +25,7 @@ public class Biblioteca {
         
 
         final float version = 1.4f;
+        char[] caracteresprohibidos = {',','|'};
         boolean exe = true;
         int seleccion = 0;
         Scanner sc = new Scanner(System.in);
@@ -32,10 +33,20 @@ public class Biblioteca {
         Book libro = new Book();
         NodeBook main = new NodeBook(libro);
         CreateSec.SetUp(main); //* Set up de la clase para poder manejar la secuencia.
-    
+
+        String msgSeleccionarOpcion = "Seleccione una opcion: ";
+        String msgOpcionDeBusqueda = "Quieres buscar por ISBN[1](Recomendado) o quieres buscar por nombre[2]? Pulse 3 para cancelar.";
+        String msgBuscarPorNombre = "Introduce el nombre del libro a buscar: ";
+        String msgBuscarPorISBN = "Introduce el ISBN del libro a buscar: ";
+        String msgBorrarLibroPorISBN = "Introduce el ISBN del libro a BORRAR(Para cancelar escribe 0): ";
+        String msgOpcionModificar = "¿Quieres modificar los datos[1], añadir una unidad[2], cancelar[0]?: ";
+        String msgAnadirPorISBN = "Introduce el ISBN del libro a añadir unidades(Para cancelar escribe 0): ";
+        String msgCantidadAnadir = "¿Cuantos unidades quieres añadir?(Número negativos para restar): ";
+        String msgConfirmarBorrarDatos = "¿Estas seguro que quieres borrar todos tus datos? Si[1] No[2]";
+        String msgConfirmarSalir = "¿Estas seguro que quieres salir? Si[1] No[2]";
+        
+
         System.out.println("\nBienvenidos al software para el control de tu biblioteca. Version: " + version + "\n\n");
-        
-        
         while(exe){
             System.out.println(" ---------------------Opciones----------------------");
             System.out.println("|                                                   |");
@@ -51,32 +62,8 @@ public class Biblioteca {
             System.out.println("|                                                   |");
             System.out.println(" ---------------------------------------------------");
             
-            while(seleccion < 1 || seleccion > 9){
-                System.out.println("Seleccione una opcion: ");
-
-                try{
-
-                    seleccion = sc.nextInt();
-                    //sc.next();
-
-                    if(seleccion < 1 || seleccion > 9){
-                        System.out.println("ERROR 0002: Opcion fuera de rango. ");
-                    }
-                    else{
-                        System.out.println("Has seleccionado: " + seleccion);
-                        System.out.println("---------------------");
-                    }
-
-                }catch(InputMismatchException e){
-                    System.out.println("ERROR 0001: Solo puedes introducir numeros. ");
-                    sc.next();
-                }
-              
-                
-
-                
-            }
-
+    
+            seleccion = Input.ObtenerNumeroEnRango(1, 9, msgSeleccionarOpcion);
 
             switch(seleccion){
                 case 1:
@@ -96,45 +83,17 @@ public class Biblioteca {
                     break;
                 case 3: 
                     int searchType = 0;
-        
-                    do{
-                        try{
-                            System.out.println("Quieres buscar por ISBN[1](Recomendado) o quieres buscar por nombre[2]? Pulse 3 para cancelar.");
-                            searchType = sc.nextInt();  
-                            sc.nextLine();
-            
-                        }catch(InputMismatchException e){
-            
-                            System.out.println("ERROR 0001: Solo puedes introducir numeros. ");
-                            sc.next(); 
-            
-                        }
-                        
-                    }
-                    while(searchType < 1 || searchType > 3);
                     
+
+                    searchType = Input.ObtenerNumeroEnRango(1, 3, msgOpcionDeBusqueda);
+
                     if(searchType == 3){
                         System.out.println("Cancelando... ");
                     }
                     else if(searchType == 2){
-                        boolean seguirBuscandoName = true;
+
                         String auxName = "";
-                        do{
-                            try{
-                                System.out.println("Introduce el nombre del libro a buscar: ");
-                                 
-                                auxName = sc.nextLine();  
-                                seguirBuscandoName = false;
-                
-                            }catch(InputMismatchException e){
-                
-                                System.out.println("Error 0003: Se perdian caracteres ASCII, se obtuvo otra cosa.");
-                                seguirBuscandoName = true;
-                                sc.next();
-                
-                            }
-                        }
-                        while(seguirBuscandoName);
+                        auxName = Input.ObtenerString(caracteresprohibidos, msgBuscarPorNombre);
 
                         if(ReadData.isBookOnLoadedDataByName(main, auxName)){
                             System.out.println("Se ha encontrado el libro: ");
@@ -146,23 +105,11 @@ public class Biblioteca {
  
                     }
                     else{
-                        boolean seguirBuscandoISBN = true;
+                    
                         String auxISBN = "";
-                        do{
-                            try{
-                                System.out.println("Introduce el ISBN del libro a buscar: ");
-                                auxISBN = sc.nextLine();  
-                                seguirBuscandoISBN = false;
-                
-                            }catch(InputMismatchException e){
-                
-                                System.out.println("ERROR 0001: Solo puedes introducir numeros. ");
-                                seguirBuscandoISBN = true;
-                                sc.next();
-                
-                            }
-                        }
-                        while(seguirBuscandoISBN);
+                        
+
+                        auxISBN = Input.ObtenerString(caracteresprohibidos, msgBuscarPorISBN);
 
                         if(ReadData.isBookOnLoadedDataByISBN(main, auxISBN)){
                             System.out.println("Se ha encontrado el libro: ");
@@ -174,9 +121,7 @@ public class Biblioteca {
 
                     }
 
-                    
                     seleccion = 0;
-
                     break;
                 case 4:
                     System.out.println("Introduce los datos del libro: ");
@@ -190,25 +135,9 @@ public class Biblioteca {
 
                     break;
                 case 5:
-                    boolean seguirBuscandoISBNBorrar = true;
-                    String auxISBNBorrar = "";
 
-                    do{
-                        try{
-                            sc.nextLine();  
-                            System.out.println("Introduce el ISBN del libro a BORRAR(Para cancelar escribe 0): ");
-                            auxISBNBorrar = sc.nextLine();  
-                            seguirBuscandoISBNBorrar = false;
-            
-                        }catch(InputMismatchException e){
-            
-                            System.out.println("ERROR 0001: Solo puedes introducir numeros. ");
-                            seguirBuscandoISBNBorrar = true;
-                            sc.next();
-            
-                        }
-                    }
-                    while(seguirBuscandoISBNBorrar);
+                    String auxISBNBorrar = "";
+                    auxISBNBorrar = Input.ObtenerString(caracteresprohibidos, msgBorrarLibroPorISBN);
 
                     if(ReadData.isBookOnLoadedDataByISBN(main, auxISBNBorrar)){
                         System.out.println("Se ha BORRADO el libro: ");
@@ -220,57 +149,19 @@ public class Biblioteca {
                     }
 
                     seleccion = 0;
-
                     break;
                 case 6:
-                    boolean seguirBuscandoISBNModficar = true;
-                    String auxISBNModficar = "";
 
-                    boolean seguirBuscandoSelectModficar = true;
                     int selectModify = 0;
-
-                    boolean seguirBuscandoCantidadModificar = true;
+                    String auxISBNModficar = "";
                     int cantidadModify = 0;
 
-                    do{
-                        try{
-                            sc.nextLine();  
-                            System.out.println("¿Quieres modificar los datos[1], añadir una unidad[2], cancelar[0]?: ");
-                            selectModify = sc.nextInt();  
-                            if(selectModify >= 0 && selectModify < 3){
-                                seguirBuscandoSelectModficar = false;
-                            }
-                            else{
-                                seguirBuscandoISBNModficar = true;
-                            }
-            
-                        }catch(InputMismatchException e){
-            
-                            System.out.println("ERROR 0001: Solo puedes introducir numeros. ");
-                            seguirBuscandoSelectModficar = true;
-                            sc.next();
-            
-                        }
-                    }
-                    while(seguirBuscandoSelectModficar);
+                    selectModify = Input.ObtenerNumeroEnRango(0, 2, msgOpcionModificar);
+                    System.out.println("SelectModify vale: "+selectModify);
 
                     if(selectModify != 0){
-                        do{
-                            try{
-                                sc.nextLine();  
-                                System.out.println("Introduce el ISBN del libro a añadir unidades(Para cancelar escribe 0): ");
-                                auxISBNModficar = sc.nextLine();  
-                                seguirBuscandoISBNModficar = false;
-                
-                            }catch(InputMismatchException e){
-                
-                                System.out.println("ERROR 0001: Solo puedes introducir numeros. ");
-                                seguirBuscandoISBNModficar = true;
-                                sc.next();
-                
-                            }
-                        }
-                        while(seguirBuscandoISBNModficar);
+
+                        auxISBNModficar = Input.ObtenerString(caracteresprohibidos, msgAnadirPorISBN);
 
                         if(!auxISBNModficar.equals("0")){
                             if(selectModify == 1){
@@ -283,25 +174,9 @@ public class Biblioteca {
                                 }
                             }
                             else if(selectModify == 2){
-                                do{
-                                    try{
-                                        //sc.nextLine();  
-                                        System.out.println("¿Cuantos unidades quieres añadir?(Número negativos para restar): ");
-                                        cantidadModify = sc.nextInt();  
-                                        seguirBuscandoCantidadModificar = false;
-                                        
-                        
-                                    }catch(InputMismatchException e){
-                        
-                                        System.out.println("ERROR 0001: Solo puedes introducir numeros. ");
-                                        seguirBuscandoCantidadModificar = true;
-                                        sc.next();
-                        
-                                    }
-                                }
-                                while(seguirBuscandoCantidadModificar);
-        
-        
+                                
+                                cantidadModify = Input.ObtenerNumeroEnRango(-999, 999, msgCantidadAnadir);
+
                                 if(ReadData.isBookOnLoadedDataByISBN(main, auxISBNModficar)){
                                     ReadData.addUnitByISBN(main, auxISBNModficar, cantidadModify);
                                     System.out.println(ReadData.searchBookOnLoadedDataByISBN(main, auxISBNModficar).toString());
@@ -310,25 +185,17 @@ public class Biblioteca {
                                 else{
                                     System.out.println("No hay ningun libro con exactamente ese ISBN.");
                                 }
-        
                             }
                         }
                         else{
-                            System.out.println("Cancelando... ");
+                            System.out.println("Cancelando1... ");
                         }
-    
-                        
-    
                     }
                     else{
-                        System.out.println("Cancelando... ");
+                        System.out.println("Cancelando2... ");
                     }
 
-                    
-                    
-
                     seleccion = 0;
-
                     break;
                 case 7:
                     System.out.println("Mostrando todos los libros... ");
@@ -336,25 +203,10 @@ public class Biblioteca {
                     seleccion = 0;
 
                     break;
-                case 8:
+                case 8:     
                     
-                    int aux = 0;
-                    
-                        
-                    do{
-                        try{
-                            System.out.println("¿Estas seguro que quieres borrar todos tus datos? Si[1] No[2]");
-                            aux = sc.nextInt();  
-                            
-                        }catch(InputMismatchException e){
-                            System.out.println("ERROR 0001: Solo puedes introducir numeros. ");
-                            sc.next();
-                        }
-                    }
-                    while(aux < 1 || aux > 2);
+                    int aux = Input.ObtenerNumeroEnRango(1, 2, msgConfirmarBorrarDatos);
 
-    
-                    
                     if(aux == 1){
                         WriteData.DeleteData();
                         seleccion = 0;
@@ -365,25 +217,10 @@ public class Biblioteca {
                     }
                     break;
                 case 9:
-                    System.out.println("Recuerda guardar antes de salir si no quieres perder tus datos.");
+                    System.out.println("Recuerda guardar antes de salir si no quieres perder tus datos.");  
                     
-                    int aux1 = 0;
-                    
-                        
-                    do{
-                        try{
-                            System.out.println("¿Estas seguro que quieres salir? Si[1] No[2]");
-                            aux1 = sc.nextInt();  
-                            
-                        }catch(InputMismatchException e){
-                            System.out.println("ERROR 0001: Solo puedes introducir numeros. ");
-                            sc.next();
-                        }
-                    }
-                    while(aux1 < 1 || aux1 > 2);
+                    int aux1 = Input.ObtenerNumeroEnRango(1, 2, msgConfirmarSalir);
 
-
-                    
                     if(aux1 == 1){
                         
                         System.out.println("Saliendo...");
@@ -393,7 +230,6 @@ public class Biblioteca {
                         System.out.println("Cancelando operacion...");
                         seleccion = 0;
                     }
-
 
                     break;
                 default:
