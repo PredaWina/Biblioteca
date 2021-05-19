@@ -24,7 +24,7 @@ public class Biblioteca {
     public static void main(String[] args) {
         
 
-        final float version = 1.4f;
+        final float version = 1.5f;
         char[] caracteresprohibidos = {',','|'};
         boolean exe = true;
         int seleccion = 0;
