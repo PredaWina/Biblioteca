@@ -24,7 +24,7 @@ public class Biblioteca {
     public static void main(String[] args) {
         
 
-        final float version = 1.3f;
+        final float version = 1.4f;
         boolean exe = true;
         int seleccion = 0;
         Scanner sc = new Scanner(System.in);
@@ -271,47 +271,57 @@ public class Biblioteca {
                             }
                         }
                         while(seguirBuscandoISBNModficar);
-    
-                        if(selectModify == 1){
-                            if(ReadData.isBookOnLoadedDataByISBN(main, auxISBNModficar)){
-                                System.out.println(ReadData.searchBookOnLoadedDataByISBN(main, auxISBNModficar).toString());
-                                ReadData.modifyBookByISBN(main, auxISBNModficar);
-                            }   
-                            else{
-                                System.out.println("No hay ningun libro con exactamente ese ISBN.");
-                            }
-                        }
-                        else if(selectModify == 2){
-                            do{
-                                try{
-                                    //sc.nextLine();  
-                                    System.out.println("¿Cuantos unidades quieres añadir?(Número negativos para restar): ");
-                                    cantidadModify = sc.nextInt();  
-                                    seguirBuscandoCantidadModificar = false;
-                                    
-                    
-                                }catch(InputMismatchException e){
-                    
-                                    System.out.println("ERROR 0001: Solo puedes introducir numeros. ");
-                                    seguirBuscandoCantidadModificar = true;
-                                    sc.next();
-                    
+
+                        if(!auxISBNModficar.equals("0")){
+                            if(selectModify == 1){
+                                if(ReadData.isBookOnLoadedDataByISBN(main, auxISBNModficar)){
+                                    System.out.println(ReadData.searchBookOnLoadedDataByISBN(main, auxISBNModficar).toString());
+                                    ReadData.modifyBookByISBN(main, auxISBNModficar);
+                                }   
+                                else{
+                                    System.out.println("No hay ningun libro con exactamente ese ISBN.");
                                 }
                             }
-                            while(seguirBuscandoCantidadModificar);
+                            else if(selectModify == 2){
+                                do{
+                                    try{
+                                        //sc.nextLine();  
+                                        System.out.println("¿Cuantos unidades quieres añadir?(Número negativos para restar): ");
+                                        cantidadModify = sc.nextInt();  
+                                        seguirBuscandoCantidadModificar = false;
+                                        
+                        
+                                    }catch(InputMismatchException e){
+                        
+                                        System.out.println("ERROR 0001: Solo puedes introducir numeros. ");
+                                        seguirBuscandoCantidadModificar = true;
+                                        sc.next();
+                        
+                                    }
+                                }
+                                while(seguirBuscandoCantidadModificar);
+        
+        
+                                if(ReadData.isBookOnLoadedDataByISBN(main, auxISBNModficar)){
+                                    ReadData.addUnitByISBN(main, auxISBNModficar, cantidadModify);
+                                    System.out.println(ReadData.searchBookOnLoadedDataByISBN(main, auxISBNModficar).toString());
     
-    
-                            if(ReadData.isBookOnLoadedDataByISBN(main, auxISBNModficar)){
-                                ReadData.addUnitByISBN(main, auxISBNModficar, cantidadModify);
-                                System.out.println(ReadData.searchBookOnLoadedDataByISBN(main, auxISBNModficar).toString());
-
-                            }   
-                            else{
-                                System.out.println("No hay ningun libro con exactamente ese ISBN.");
+                                }   
+                                else{
+                                    System.out.println("No hay ningun libro con exactamente ese ISBN.");
+                                }
+        
                             }
-    
+                        }
+                        else{
+                            System.out.println("Cancelando... ");
                         }
     
+                        
+    
+                    }
+                    else{
+                        System.out.println("Cancelando... ");
                     }
 
                     
