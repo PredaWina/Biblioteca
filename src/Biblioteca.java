@@ -24,7 +24,7 @@ public class Biblioteca {
     public static void main(String[] args) {
         
 
-        final float version = 1.6f;
+        final float version = 1.7f;
         char[] caracteresprohibidos = {',','|'};
         boolean exe = true;
         int seleccion = 0;
@@ -83,43 +83,10 @@ public class Biblioteca {
                     break;
                 case 3: 
                     int searchType = 0;
-                    
-
-                    searchType = Input.ObtenerNumeroEnRango(1, 3, msgOpcionDeBusqueda);
-
-                    if(searchType == 3){
-                        System.out.println("Cancelando... ");
-                    }
-                    else if(searchType == 2){
-
-                        String auxName = "";
-                        auxName = Input.ObtenerString(caracteresprohibidos, msgBuscarPorNombre);
-
-                        if(ReadData.isBookOnLoadedDataByName(main, auxName)){
-                            System.out.println("Se ha encontrado el libro: ");
-                            System.out.println(ReadData.searchBookOnLoadedDataByName(main, auxName).toString());
-                        }   
-                        else{
-                            System.out.println("No hay ningun libro con exactamente ese nombre.");
-                        }
- 
-                    }
-                    else{
-                    
-                        String auxISBN = "";
-                        
-
-                        auxISBN = Input.ObtenerString(caracteresprohibidos, msgBuscarPorISBN);
-
-                        if(ReadData.isBookOnLoadedDataByISBN(main, auxISBN)){
-                            System.out.println("Se ha encontrado el libro: ");
-                            System.out.println(ReadData.searchBookOnLoadedDataByISBN(main, auxISBN).toString());
-                        }   
-                        else{
-                            System.out.println("No hay ningun libro con exactamente ese ISBN.");
-                        }
-
-                    }
+  
+                    String auxName = "";
+                    auxName = Input.ObtenerString(caracteresprohibidos, msgBuscarPorNombre);
+                    ReadData.searchBookOnLoadedDataByName(main, auxName);
 
                     seleccion = 0;
                     break;
@@ -141,7 +108,7 @@ public class Biblioteca {
 
                     if(ReadData.isBookOnLoadedDataByISBN(main, auxISBNBorrar)){
                         System.out.println("Se ha BORRADO el libro: ");
-                        System.out.println(ReadData.searchBookOnLoadedDataByISBN(main, auxISBNBorrar).toString());
+                        ReadData.searchBookOnLoadedDataByName(main, auxISBNBorrar);
                         main = ReadData.deleteBookByISBN(main, auxISBNBorrar);
                     }   
                     else{
@@ -166,7 +133,7 @@ public class Biblioteca {
                         if(!auxISBNModficar.equals("0")){
                             if(selectModify == 1){
                                 if(ReadData.isBookOnLoadedDataByISBN(main, auxISBNModficar)){
-                                    System.out.println(ReadData.searchBookOnLoadedDataByISBN(main, auxISBNModficar).toString());
+                                    ReadData.searchBookOnLoadedDataByName(main, auxISBNModficar);
                                     ReadData.modifyBookByISBN(main, auxISBNModficar);
                                 }   
                                 else{
@@ -179,7 +146,7 @@ public class Biblioteca {
 
                                 if(ReadData.isBookOnLoadedDataByISBN(main, auxISBNModficar)){
                                     ReadData.addUnitByISBN(main, auxISBNModficar, cantidadModify);
-                                    System.out.println(ReadData.searchBookOnLoadedDataByISBN(main, auxISBNModficar).toString());
+                                    ReadData.searchBookOnLoadedDataByName(main, auxISBNModficar);
     
                                 }   
                                 else{

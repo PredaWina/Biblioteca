@@ -1,6 +1,7 @@
 import java.io.*;
 import java.util.*;
 
+
 public class ReadData {
 
     public static NodeBook Read(){
@@ -87,7 +88,31 @@ public class ReadData {
         
             
     }
+    public static void viewLoadedData(NodeBook nodo, String msgNoHayDatos){
+        NodeBook main = nodo;
+        int aux = 1;
 
+        if(main == null || main.data.ISBN == "0"){
+            System.out.println(msgNoHayDatos);
+
+        }
+        else{
+            while(main != null){
+                System.out.println(main.data.toString());
+                
+                System.out.println("Libro numero: " + aux);
+                main = main.next; 
+                aux++;
+            }
+            System.out.println("\n--------------------");
+            System.out.println("Total de libros: " + (aux - 1));
+            System.out.println("--------------------");
+        }
+        
+            
+    }
+
+/*
     public static boolean isBookOnLoadedDataByName(NodeBook nodo, String name){
         NodeBook main = nodo;
         boolean isFound = false;
@@ -112,31 +137,59 @@ public class ReadData {
 
         return isFound;
     }
+    */
 
-    public static Book searchBookOnLoadedDataByName(NodeBook nodo, String name){
+    public static void searchBookOnLoadedDataByName(NodeBook nodo, String name){
         Book libro = new Book();
         NodeBook main = nodo;
+        NodeBook aux = null;
         boolean found = false;
-        
+
         if(main == null || main.data.ISBN == "0"){
             System.out.println("ERROR 0103: No hay datos cargados.");
-
         }
-        else{
+        else if(isBookOnLoadedDataByISBN(main, name)){
             while(main != null && found == false){
-                if(main.data.name.equals(name)){
-                    libro =  main.data;     
+                if(main.data.ISBN.equals(name)){
+                    System.out.println(main.data.toString());   
                     found = true;
                 }  
                 else{
                     main = main.next;
                 } 
             }
+           
+        }
+        else{
+            while(main != null && found == false){
+                if(main.data.name.contains(name)){
+                    libro =  main.data;     
+                    if(aux == null){
+                        aux = new NodeBook(libro);
+                        
+                    }
+                    else{
+                        aux = new NodeBook(libro, aux);
+                    }
+                    found = true;
+                }   
+                else{
+                    main = main.next;
+                } 
+            }
+            if(aux != null){
+                viewLoadedData(aux, "Libro(s) encontrado(s): ");
+            }
+
             
         }
-        return libro;
+        if(!found){
+            System.out.println("No hay concidencias");
+        }
+
     }
 
+    
     public static boolean isBookOnLoadedDataByISBN(NodeBook nodo, String ISBN){
         NodeBook main = nodo;
         boolean isFound = false;
@@ -162,6 +215,7 @@ public class ReadData {
         return isFound;
     }
 
+    /*
     public static Book searchBookOnLoadedDataByISBN(NodeBook nodo, String ISBN){
         Book libro = new Book();
         NodeBook main = nodo;
@@ -185,6 +239,7 @@ public class ReadData {
         }
         return libro;
     }
+    */
 
     public static NodeBook deleteBookByISBN(NodeBook nodo, String ISBN){
 

@@ -4,7 +4,7 @@ INFORMACION: Para compilar y obtener un .bat ejecutable del programa, primero ej
 ACTUALIZACIONES: Se espera en el futuro añadir algunas funcionalidades mas para este programa antes de abandonarlo. Un buscador que no requiera el nombre exacto y quizas una forma mas rapida de añadir libros.
 
 @Author: Pablo G.S.
-@Version: 1.6
+@Version: 1.7
 @Date: 18/05/2021
 
 Codigo libre, se permite el uso, la modificación y distribución del SoftWare siempre y cuando se haga de manera totalmente gratuita y manteniendo las mismas condiciones de derechos de autor.
