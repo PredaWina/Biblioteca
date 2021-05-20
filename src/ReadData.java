@@ -112,33 +112,6 @@ public class ReadData {
             
     }
 
-/*
-    public static boolean isBookOnLoadedDataByName(NodeBook nodo, String name){
-        NodeBook main = nodo;
-        boolean isFound = false;
-
-        if(main == null || main.data.ISBN == "0"){
-            System.out.println("ERROR 0103: No hay datos cargados.");
-
-        }
-        else{
-            while(main != null && isFound == false){
-                if(main.data.name.equals(name)){
-                    isFound = true;
-                    
-                }  
-                else{
-                    main = main.next;
-                } 
-            }
-            
-        }
-
-
-        return isFound;
-    }
-    */
-
     public static void searchBookOnLoadedDataByName(NodeBook nodo, String name){
         Book libro = new Book();
         NodeBook main = nodo;
@@ -158,15 +131,13 @@ public class ReadData {
                     main = main.next;
                 } 
             }
-           
         }
         else{
             while(main != null){
                 if(main.data.name.contains(name)){
                     libro =  main.data;     
                     if(aux == null){
-                        aux = new NodeBook(libro);
-                        
+                        aux = new NodeBook(libro);     
                     }
                     else{
                         aux = new NodeBook(libro, aux);
@@ -181,16 +152,13 @@ public class ReadData {
             if(aux != null){
                 viewLoadedData(aux, "Libro(s) encontrado(s): ");
             }
-
-            
         }
+
         if(!found){
             System.out.println("No hay concidencias");
         }
-
     }
 
-    
     public static boolean isBookOnLoadedDataByISBN(NodeBook nodo, String ISBN){
         NodeBook main = nodo;
         boolean isFound = false;
@@ -215,32 +183,6 @@ public class ReadData {
 
         return isFound;
     }
-
-    /*
-    public static Book searchBookOnLoadedDataByISBN(NodeBook nodo, String ISBN){
-        Book libro = new Book();
-        NodeBook main = nodo;
-        boolean found = false;
-        
-        if(main == null || main.data.ISBN == "0"){
-            System.out.println("ERROR 0103: No hay datos cargados.");
-
-        }
-        else{
-            while(main != null && found == false){
-                if(main.data.ISBN.equals(ISBN)){
-                    libro =  main.data;     
-                    found = true;
-                }  
-                else{
-                    main = main.next;
-                } 
-            }
-            
-        }
-        return libro;
-    }
-    */
 
     public static NodeBook deleteBookByISBN(NodeBook nodo, String ISBN){
 
@@ -279,7 +221,6 @@ public class ReadData {
         }
         return aux;
     }
-
 
     public static void modifyBookByISBN(NodeBook nodo, String ISBN){
 
