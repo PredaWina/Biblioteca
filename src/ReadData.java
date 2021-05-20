@@ -189,6 +189,7 @@ public class ReadData {
     public static NodeBook deleteBookByISBN(NodeBook nodo, String ISBN){
 
         NodeBook main = nodo;
+        NodeBook aux = main;
         boolean found = false;
         
         if(main == null || main.data.ISBN == "0"){
@@ -196,32 +197,33 @@ public class ReadData {
 
         }
         else{
-            while(main != null && found == false){
-                if(main.data.ISBN.equals(ISBN)){
+            if(main.data.ISBN.equals(ISBN)){
 
-                    if(main.next != null && main.next.data != null){ //? Borrrar todo el if despues
-                        System.out.println(main.next.data.toString());
+                found = true;
+                aux = aux.next;
+            }
+            else{
+                while(main.next != null && found == false){
+                
+                    if(main.next.data.ISBN.equals(ISBN)){
+    
+                        if(main.next != null){ 
+                            main.next = main.next.next;  
+                        }
+                          
+                        found = true;
                     }
-                    
-                    main = main.next;
-                    found = true;
+                    else{
+                        main = main.next;
+                    } 
                 }
-                else if(main.next.data.ISBN.equals(ISBN)){
-
-                    if(main.next != null){
-                        main.next = main.next.next;  
-                    }
-                      
-                    found = true;
-                }
-                else{
-                    main = main.next;
-                } 
             }
             
+            
         }
-        return main;
+        return aux;
     }
+
 
     public static void modifyBookByISBN(NodeBook nodo, String ISBN){
 
