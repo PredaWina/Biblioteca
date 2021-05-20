@@ -1,11 +1,15 @@
 public class test {
     public static void main(String[] args) {
-        String aux;
+        String test = "|";
         int xd;
         char[] caracteresprohibidos = {',','|'};
 
-        xd = Input.ObtenerNumeroEnRango(1, 3, "Introduce un número: ");
-        aux = Input.ObtenerString(caracteresprohibidos, "Introduce un mensaje: ");
+        if(test.length() > 0){
+            test = test.substring(0, test.length() - 1);
+        }
+        
+
+        System.out.println("Prueba: " + test + "LLP");
 
         /*
         System.out.println(xd);

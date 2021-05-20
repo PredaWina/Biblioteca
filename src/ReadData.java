@@ -50,74 +50,18 @@ public class ReadData {
 
     public static Book CreateBook(String aux){
         Book libro = new Book();
-        String nameaux = "";
-        String ISBNaux = "";
-        String authoraux = "";
-        String editorialaux = "";
-        String amountaux = "";
 
-        
-        char[] chararr = aux.toCharArray();
-        int datapos = 0;
+        String[] test = aux.split(",");
+        libro.name = test[0];
+        libro.ISBN = test[1];
+        libro.author = test[2];
+        libro.editorial = test[3];
 
-        for(int i = 0; i < chararr.length; i++){
-
-            switch(datapos){
-                case 0:
-                    if(chararr[i] == ','){
-                        datapos++;
-                    }
-                    else{
-                        nameaux += chararr[i];
-                    }
-                    break;
-                case 1:
-                    if(chararr[i] == ','){
-                        datapos++;
-                    }
-                    else{
-                        ISBNaux += chararr[i];
-                    }
-                    break;
-                case 2:
-                    if(chararr[i] == ','){
-                        datapos++;
-                    }
-                    else{
-                        authoraux += chararr[i];
-                    }
-                    break;
-                case 3:
-                    if(chararr[i] == ','){
-                        datapos++;
-                    }
-                    else{
-                        editorialaux += chararr[i];
-                    }
-                    break;
-                case 4:
-                    if(chararr[i] == '|'){
-                        datapos++;
-                    }
-                    else{
-                        amountaux += chararr[i];
-                    }
-                    break;  
-                default:
-                    i = chararr.length;
-            }
-
-
+        if(test[4].length() > 0){
+            test[4] = test[4].substring(0, test[4].length() - 1);
+            libro.amount = Integer.parseInt(test[4]);
         }
         
-        libro.name = nameaux;
-        libro.ISBN = ISBNaux;
-        libro.author = authoraux;
-        libro.editorial = editorialaux;
-
-        libro.amount = Integer.parseInt(amountaux);
-
-
         return libro;
     }
 
