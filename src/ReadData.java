@@ -161,7 +161,7 @@ public class ReadData {
            
         }
         else{
-            while(main != null && found == false){
+            while(main != null){
                 if(main.data.name.contains(name)){
                     libro =  main.data;     
                     if(aux == null){
@@ -171,6 +171,7 @@ public class ReadData {
                     else{
                         aux = new NodeBook(libro, aux);
                     }
+                    main = main.next;
                     found = true;
                 }   
                 else{
