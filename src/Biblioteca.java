@@ -22,7 +22,6 @@ import java.util.*;
 
 public class Biblioteca {
     public static void main(String[] args) {
-        
 
         final float version = 1.7f;
         char[] caracteresprohibidos = {',','|'};
@@ -35,9 +34,7 @@ public class Biblioteca {
         CreateSec.SetUp(main); //* Set up de la clase para poder manejar la secuencia.
 
         String msgSeleccionarOpcion = "Seleccione una opcion: ";
-        String msgOpcionDeBusqueda = "Quieres buscar por ISBN[1](Recomendado) o quieres buscar por nombre[2]? Pulse 3 para cancelar.";
         String msgBuscarPorNombre = "Introduce el nombre del libro a buscar: ";
-        String msgBuscarPorISBN = "Introduce el ISBN del libro a buscar: ";
         String msgBorrarLibroPorISBN = "Introduce el ISBN del libro a BORRAR(Para cancelar escribe 0): ";
         String msgOpcionModificar = "¿Quieres modificar los datos[1], añadir una unidad[2], cancelar[0]?: ";
         String msgAnadirPorISBN = "Introduce el ISBN del libro a añadir unidades(Para cancelar escribe 0): ";
@@ -82,8 +79,6 @@ public class Biblioteca {
 
                     break;
                 case 3: 
-                    int searchType = 0;
-  
                     String auxName = "";
                     auxName = Input.ObtenerString(caracteresprohibidos, msgBuscarPorNombre);
                     ReadData.searchBookOnLoadedDataByName(main, auxName);
@@ -102,7 +97,6 @@ public class Biblioteca {
 
                     break;
                 case 5:
-
                     String auxISBNBorrar = "";
                     auxISBNBorrar = Input.ObtenerString(caracteresprohibidos, msgBorrarLibroPorISBN);
 
@@ -170,8 +164,7 @@ public class Biblioteca {
                     seleccion = 0;
 
                     break;
-                case 8:     
-                    
+                case 8:      
                     int aux = Input.ObtenerNumeroEnRango(1, 2, msgConfirmarBorrarDatos);
 
                     if(aux == 1){
