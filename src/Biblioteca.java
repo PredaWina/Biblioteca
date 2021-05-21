@@ -18,7 +18,7 @@
  * Error 1002: Error desconocido durante la creacion de un libro.
  */
 
-import java.util.*;
+//import java.util.*;
 
 public class Biblioteca {
     public static void main(String[] args) {
@@ -27,7 +27,7 @@ public class Biblioteca {
         char[] caracteresprohibidos = {',','|'};
         boolean exe = true;
         int seleccion = 0;
-        Scanner sc = new Scanner(System.in);
+        //Scanner sc = new Scanner(System.in);
 
         Book libro = new Book();
         NodeBook main = new NodeBook(libro);
@@ -196,6 +196,6 @@ public class Biblioteca {
                     System.out.println("Error 1001: Desconocido");  
             }
         }
-        sc.close(); 
+        //sc.close(); 
     }
 }
